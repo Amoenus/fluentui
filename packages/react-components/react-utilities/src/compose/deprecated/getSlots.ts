@@ -6,11 +6,11 @@ import type {
   ExtractSlotProps,
   SlotPropsRecord,
   SlotRenderFunction,
-  UnionToIntersection,
   UnknownSlotProps,
 } from '../types';
 import { isSlot } from '../isSlot';
 import { SLOT_RENDER_FUNCTION_SYMBOL } from '../constants';
+import { UnionToIntersection } from '../../utils/types';
 
 /**
  * @deprecated - use slot.always or slot.optional combined with assertSlots instead
@@ -59,23 +59,23 @@ export type ObjectSlotProps<S extends SlotPropsRecord> = {
 export function getSlots<R extends SlotPropsRecord>(
   state: ComponentState<R>,
 ): {
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   slots: Slots<R>;
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   slotProps: ObjectSlotProps<R>;
 } {
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   const slots = {} as Slots<R>;
   const slotProps = {} as R;
 
   const slotNames: (keyof R)[] = Object.keys(state.components);
   for (const slotName of slotNames) {
     const [slot, props] = getSlot(state, slotName);
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     slots[slotName] = slot as Slots<R>[typeof slotName];
     slotProps[slotName] = props;
   }
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   return { slots, slotProps: slotProps as unknown as ObjectSlotProps<R> };
 }
 

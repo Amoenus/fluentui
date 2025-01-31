@@ -9,6 +9,8 @@ interface IAreaChartBasicState {
   height: number;
   isCalloutselected: boolean;
   showAxisTitles: boolean;
+  legendMultiSelect: boolean;
+  changeChartMode: boolean;
 }
 
 const options: IChoiceGroupOption[] = [
@@ -24,11 +26,30 @@ export class AreaChartBasicExample extends React.Component<{}, IAreaChartBasicSt
       height: 300,
       isCalloutselected: false,
       showAxisTitles: true,
+      legendMultiSelect: false,
+      changeChartMode: false,
     };
+  }
+  public componentDidMount(): void {
+    const style = document.createElement('style');
+    const focusStylingCSS = `
+    .containerDiv [contentEditable=true]:focus,
+    .containerDiv [tabindex]:focus,
+    .containerDiv area[href]:focus,
+    .containerDiv button:focus,
+    .containerDiv iframe:focus,
+    .containerDiv input:focus,
+    .containerDiv select:focus,
+    .containerDiv textarea:focus {
+      outline: -webkit-focus-ring-color auto 5px;
+    }
+    `;
+    style.appendChild(document.createTextNode(focusStylingCSS));
+    document.head.appendChild(style);
   }
 
   public render(): JSX.Element {
-    return <div>{this._basicExample()}</div>;
+    return <div className="containerDiv">{this._basicExample()}</div>;
   }
 
   private _onWidthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,6 +70,16 @@ export class AreaChartBasicExample extends React.Component<{}, IAreaChartBasicSt
   private _onToggleAxisTitlesCheckChange = (ev: React.MouseEvent<HTMLElement>, checked: boolean) => {
     this.forceUpdate();
     this.setState({ showAxisTitles: checked });
+  };
+
+  private _onToggleLegendMultiSelect = (ev: React.MouseEvent<HTMLElement>, checked: boolean) => {
+    this.forceUpdate();
+    this.setState({ legendMultiSelect: checked });
+  };
+
+  private _onToggleChartMode = (ev: React.MouseEvent<HTMLElement>, checked: boolean) => {
+    this.forceUpdate();
+    this.setState({ changeChartMode: checked });
   };
 
   private _basicExample(): JSX.Element {
@@ -145,10 +176,36 @@ export class AreaChartBasicExample extends React.Component<{}, IAreaChartBasicSt
       },
     ];
 
+    const chart2Points = chart1Points.map((point, index) => {
+      return {
+        x: point.x,
+        y: point.y + 5000,
+        xAxisCalloutData: point.xAxisCalloutData,
+        yAxisCalloutData: point.yAxisCalloutData,
+      };
+    });
+
+    const chart3Points = chart1Points.map((point, index) => {
+      return {
+        x: point.x,
+        y: point.y + 7000,
+        xAxisCalloutData: point.xAxisCalloutData,
+        yAxisCalloutData: point.yAxisCalloutData,
+      };
+    });
+
     const chartPoints = [
       {
         legend: 'legend1',
         data: chart1Points,
+      },
+      {
+        legend: 'legend2',
+        data: chart2Points,
+      },
+      {
+        legend: 'legend3',
+        data: chart3Points,
       },
     ];
 
@@ -191,6 +248,22 @@ export class AreaChartBasicExample extends React.Component<{}, IAreaChartBasicSt
           onChange={this._onToggleAxisTitlesCheckChange}
           styles={{ root: { marginTop: '10px' } }}
         />
+        <Toggle
+          label="Select multiple legends"
+          onText="ON"
+          offText="OFF"
+          checked={this.state.legendMultiSelect}
+          onChange={this._onToggleLegendMultiSelect}
+          styles={{ root: { marginTop: '10px' } }}
+        />
+        <Toggle
+          label="Change chart mode to toZeroY"
+          onText="ON"
+          offText="OFF"
+          checked={this.state.changeChartMode}
+          onChange={this._onToggleChartMode}
+          styles={{ root: { marginTop: '10px' } }}
+        />
         {this.state.showAxisTitles && (
           <div style={rootStyle}>
             <AreaChart
@@ -213,6 +286,10 @@ export class AreaChartBasicExample extends React.Component<{}, IAreaChartBasicSt
               enableReflow={true}
               yAxisTitle={this.state.showAxisTitles ? 'Variation of stock market prices' : undefined}
               xAxisTitle={this.state.showAxisTitles ? 'Number of days' : undefined}
+              legendProps={{
+                canSelectMultipleLegends: this.state.legendMultiSelect,
+              }}
+              mode={this.state.changeChartMode ? 'tozeroy' : 'tonexty'}
             />
           </div>
         )}
@@ -236,6 +313,10 @@ export class AreaChartBasicExample extends React.Component<{}, IAreaChartBasicSt
                 ) : null
               }
               enableReflow={true}
+              legendProps={{
+                canSelectMultipleLegends: this.state.legendMultiSelect,
+              }}
+              mode={this.state.changeChartMode ? 'tozeroy' : 'tonexty'}
             />
           </div>
         )}

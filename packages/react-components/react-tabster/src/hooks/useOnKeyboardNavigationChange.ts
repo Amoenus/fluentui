@@ -1,8 +1,8 @@
-import * as React from 'react';
-import { createKeyborg, disposeKeyborg } from 'keyborg';
-import { useFluent_unstable as useFluent } from '@fluentui/react-shared-contexts';
 import type { KeyborgCallback } from 'keyborg';
+import * as React from 'react';
 import { useEventCallback } from '@fluentui/react-utilities';
+
+import { useKeyborgRef } from './useKeyborgRef';
 
 /**
  * Instantiates [keyborg](https://github.com/microsoft/keyborg) and subscribes to changes
@@ -11,20 +11,23 @@ import { useEventCallback } from '@fluentui/react-utilities';
  * @param callback - called every time the keyboard navigation state changes
  */
 export function useOnKeyboardNavigationChange(callback: (isNavigatingWithKeyboard: boolean) => void) {
-  const { targetDocument } = useFluent();
-  const keyborg = React.useMemo(() => targetDocument && createKeyborg(targetDocument.defaultView!), [targetDocument]);
+  const keyborgRef = useKeyborgRef();
   const eventCallback = useEventCallback(callback);
+
   React.useEffect(() => {
+    const keyborg = keyborgRef.current;
+
     if (keyborg) {
       const cb: KeyborgCallback = next => {
         eventCallback(next);
       };
-      keyborg.subscribe(cb);
-      return () => keyborg.unsubscribe(cb);
-    }
-  }, [keyborg, eventCallback]);
 
-  React.useEffect(() => {
-    return () => keyborg && disposeKeyborg(keyborg);
-  }, [keyborg]);
+      keyborg.subscribe(cb);
+      cb(keyborg.isNavigatingWithKeyboard());
+
+      return () => {
+        keyborg.unsubscribe(cb);
+      };
+    }
+  }, [keyborgRef, eventCallback]);
 }

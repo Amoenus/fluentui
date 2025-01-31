@@ -55,8 +55,6 @@ export class TooltipHostBase extends React.Component<ITooltipHostProps, ITooltip
       isAriaPlaceholderRendered: false,
       isTooltipVisible: false,
     };
-
-    this._async = new Async(this);
   }
 
   // Render
@@ -69,7 +67,7 @@ export class TooltipHostBase extends React.Component<ITooltipHostProps, ITooltip
       directionalHintForRTL,
       hostClassName: className,
       id,
-      // eslint-disable-next-line deprecation/deprecation
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       setAriaDescribedBy = true,
       tooltipProps,
       styles,
@@ -129,6 +127,10 @@ export class TooltipHostBase extends React.Component<ITooltipHostProps, ITooltip
         </div>
       </div>
     );
+  }
+
+  public componentDidMount(): void {
+    this._async = new Async(this);
   }
 
   public componentWillUnmount(): void {
@@ -259,7 +261,7 @@ export class TooltipHostBase extends React.Component<ITooltipHostProps, ITooltip
   };
 
   private _onTooltipKeyDown = (ev: React.KeyboardEvent<HTMLElement>): void => {
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     if ((ev.which === KeyCodes.escape || ev.ctrlKey) && this.state.isTooltipVisible) {
       this._hideTooltip();
       ev.stopPropagation();
