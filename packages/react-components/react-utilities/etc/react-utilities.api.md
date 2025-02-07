@@ -4,7 +4,6 @@
 
 ```ts
 
-import { DispatchWithoutAction } from 'react';
 import * as React_2 from 'react';
 
 // @public
@@ -37,8 +36,23 @@ export type ComponentState<Slots extends SlotPropsRecord> = {
 // @internal (undocumented)
 export function createPriorityQueue<T>(compare: PriorityQueueCompareFn<T>): PriorityQueue<T>;
 
+// @public
+export type DistributiveOmit<T, K extends keyof any> = T extends unknown ? Omit<T, K> : T;
+
 // @internal
 export function elementContains(parent: Node | null, child: Node | null): boolean;
+
+// @public
+export type EventData<Type extends string, TEvent> = {
+    type: undefined;
+    event: React_2.SyntheticEvent | Event;
+} | {
+    type: Type;
+    event: TEvent;
+};
+
+// @public
+export type EventHandler<TData extends EventData<string, unknown>> = (ev: React_2.SyntheticEvent | Event, data: TData) => void;
 
 // @public
 export type ExtractSlotProps<S> = Exclude<S, SlotShorthandValue | null | undefined>;
@@ -58,7 +72,7 @@ export function getEventClientCoords(event: TouchOrMouseEvent): {
 };
 
 // @public
-export const getIntrinsicElementProps: <Props extends UnknownSlotProps, ExcludedPropKeys extends Extract<keyof Props, string> = never>(tagName: NonNullable<Props["as"]>, props: Props & React_2.RefAttributes<InferredElementRefType<Props>>, excludedPropNames?: ExcludedPropKeys[] | undefined) => OmitWithoutExpanding<Props, ExcludedPropKeys | Exclude<keyof Props, "as" | keyof HTMLAttributes>>;
+export const getIntrinsicElementProps: <Props extends UnknownSlotProps, ExcludedPropKeys extends Extract<keyof Props, string> = never>(tagName: NonNullable<Props["as"]>, props: Props & React_2.RefAttributes<InferredElementRefType<Props>>, excludedPropNames?: ExcludedPropKeys[] | undefined) => DistributiveOmit<Props, ExcludedPropKeys | Exclude<keyof Props, "as" | keyof HTMLAttributes>>;
 
 // @public @deprecated
 export function getNativeElementProps<TAttributes extends React_2.HTMLAttributes<any>>(tagName: string, props: {}, excludedPropNames?: string[]): TAttributes;
@@ -174,7 +188,7 @@ export interface PriorityQueue<T> {
 export type ReactTouchOrMouseEvent = React_2.MouseEvent | React_2.TouchEvent;
 
 // @public
-export type RefObjectFunction<T> = React_2.RefObject<T> & ((value: T) => void);
+export type RefObjectFunction<T> = React_2.RefObject<T> & ((value: T | null) => void);
 
 // @public
 export function resetIdsForTests(): void;
@@ -265,7 +279,7 @@ export type SlotClassNames<Slots> = {
 };
 
 // @public
-export type SlotComponentType<Props extends UnknownSlotProps> = Props & {
+export type SlotComponentType<Props> = Props & {
     (props: React_2.PropsWithChildren<{}>): React_2.ReactElement | null;
     [SLOT_RENDER_FUNCTION_SYMBOL]?: SlotRenderFunction<Props>;
     [SLOT_ELEMENT_TYPE_SYMBOL]: React_2.ComponentType<Props> | (Props extends AsIntrinsicElement<infer As> ? As : keyof JSX.IntrinsicElements);
@@ -305,6 +319,9 @@ export type TriggerProps<TriggerChildProps = unknown> = {
 };
 
 // @public
+export type UnionToIntersection<U> = (U extends unknown ? (x: U) => U : never) extends (x: infer I) => U ? I : never;
+
+// @public
 export type UnknownSlotProps = Pick<React_2.HTMLAttributes<HTMLElement>, 'children' | 'className' | 'style'> & {
     as?: keyof JSX.IntrinsicElements;
 };
@@ -329,7 +346,7 @@ export const useEventCallback: <Args extends unknown[], Return>(fn: (...args: Ar
 export function useFirstMount(): boolean;
 
 // @internal
-export function useForceUpdate(): DispatchWithoutAction;
+export function useForceUpdate(): React_2.DispatchWithoutAction;
 
 // @public
 export function useId(prefix?: string, providedId?: string): string;

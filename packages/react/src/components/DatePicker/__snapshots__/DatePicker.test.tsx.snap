@@ -92,6 +92,7 @@ exports[`DatePicker renders DatePicker allowing text input correctly 1`] = `
             aria-expanded={false}
             aria-haspopup="dialog"
             aria-invalid={false}
+            aria-required={false}
             className=
                 ms-TextField-field
                 {
@@ -172,6 +173,7 @@ exports[`DatePicker renders DatePicker allowing text input correctly 1`] = `
             value=""
           />
           <i
+            aria-expanded={false}
             aria-hidden={true}
             className=
                 ms-DatePicker-event--without-label
@@ -195,9 +197,11 @@ exports[`DatePicker renders DatePicker allowing text input correctly 1`] = `
                   position: absolute;
                   right: 4px;
                   speak: none;
+                  text-decoration: inherit;
                 }
             data-icon-name="Calendar"
             onClick={[Function]}
+            role="button"
           >
             
           </i>
@@ -319,6 +323,7 @@ exports[`DatePicker renders DatePicker with value correctly 1`] = `
             aria-expanded={false}
             aria-haspopup="dialog"
             aria-invalid={false}
+            aria-required={false}
             className=
                 ms-TextField-field
                 {
@@ -425,6 +430,7 @@ exports[`DatePicker renders DatePicker with value correctly 1`] = `
                   position: absolute;
                   right: 4px;
                   speak: none;
+                  text-decoration: inherit;
                 }
             data-icon-name="Calendar"
             onClick={[Function]}
@@ -549,6 +555,7 @@ exports[`DatePicker renders default DatePicker correctly 1`] = `
             aria-expanded={false}
             aria-haspopup="dialog"
             aria-invalid={false}
+            aria-required={false}
             className=
                 ms-TextField-field
                 {
@@ -664,6 +671,7 @@ exports[`DatePicker renders default DatePicker correctly 1`] = `
                   position: absolute;
                   right: 4px;
                   speak: none;
+                  text-decoration: inherit;
                 }
             data-icon-name="Calendar"
             onClick={[Function]}

@@ -215,9 +215,9 @@ function useListeners(
     (e: KeyboardEvent) => {
       // Open coachmark if user presses ALT + C (arbitrary keypress for now)
       if (
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         (e.altKey && e.which === KeyCodes.c) ||
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         (e.which === KeyCodes.enter && translateAnimationContainer.current?.contains?.(e.target as Node))
       ) {
         openCoachmark();
@@ -481,6 +481,10 @@ export const CoachmarkBase: React.FunctionComponent<ICoachmarkProps> = React.for
 
   const finalHeight: number | undefined = isCollapsed ? COACHMARK_HEIGHT : entityInnerHostRect.height;
 
+  const onClickCallout = React.useCallback(() => {
+    openCoachmark();
+  }, [openCoachmark]);
+
   return (
     <PositioningContainer
       target={target}
@@ -510,6 +514,7 @@ export const CoachmarkBase: React.FunctionComponent<ICoachmarkProps> = React.for
                 role="dialog"
                 aria-labelledby={ariaLabelledBy}
                 aria-describedby={ariaDescribedBy}
+                onClick={onClickCallout}
               >
                 {isCollapsed && [
                   ariaLabelledBy && (
@@ -577,7 +582,7 @@ function getBounds(
 }
 
 function isInsideElement(
-  // eslint-disable-next-line deprecation/deprecation
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   targetElementRect: ClientRect,
   mouseX: number,
   mouseY: number,

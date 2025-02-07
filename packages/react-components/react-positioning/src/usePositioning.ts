@@ -30,6 +30,8 @@ import { POSITIONING_END_EVENT } from './constants';
  * @internal
  */
 export function usePositioning(options: PositioningProps & PositioningOptions): UsePositioningReturn {
+  'use no memo';
+
   const managerRef = React.useRef<PositionManager | null>(null);
   const targetRef = React.useRef<TargetElement | null>(null);
   const overrideTargetRef = React.useRef<TargetElement | null>(null);
@@ -65,7 +67,7 @@ export function usePositioning(options: PositioningProps & PositioningOptions): 
     options.positioningRef,
     () => ({
       updatePosition: () => managerRef.current?.updatePosition(),
-      setTarget: (target: TargetElement) => {
+      setTarget: (target: TargetElement | null) => {
         if (options.target && process.env.NODE_ENV !== 'production') {
           const err = new Error();
           // eslint-disable-next-line no-console
@@ -158,6 +160,8 @@ export function usePositioning(options: PositioningProps & PositioningOptions): 
 }
 
 function usePositioningOptions(options: PositioningOptions) {
+  'use no memo';
+
   const {
     align,
     arrowPadding,
@@ -169,13 +173,15 @@ function usePositioningOptions(options: PositioningOptions) {
     pinned,
     position,
     unstable_disableTether: disableTether,
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     positionFixed,
     strategy,
     overflowBoundaryPadding,
     fallbackPositions,
     useTransform,
     matchTargetSize,
+    disableUpdateOnResize = false,
+    shiftToCoverTarget,
   } = options;
 
   const { dir, targetDocument } = useFluent();
@@ -200,8 +206,9 @@ function usePositioningOptions(options: PositioningOptions) {
           disableTether,
           overflowBoundaryPadding,
           isRtl,
+          shiftToCoverTarget,
         }),
-        autoSize && maxSizeMiddleware(autoSize, { container, overflowBoundary }),
+        autoSize && maxSizeMiddleware(autoSize, { container, overflowBoundary, overflowBoundaryPadding, isRtl }),
         intersectingMiddleware(),
         arrow && arrowMiddleware({ element: arrow, padding: arrowPadding }),
         hideMiddleware({ strategy: 'referenceHidden' }),
@@ -216,6 +223,7 @@ function usePositioningOptions(options: PositioningOptions) {
         middleware,
         strategy: positionStrategy,
         useTransform,
+        disableUpdateOnResize,
       };
     },
     // Options is missing here, but it's not required
@@ -238,6 +246,7 @@ function usePositioningOptions(options: PositioningOptions) {
       useTransform,
       matchTargetSize,
       targetDocument,
+      disableUpdateOnResize,
     ],
   );
 }
