@@ -1482,7 +1482,7 @@ describe('FocusZone', () => {
     const innerFocusZone = focusZone.querySelector('.innerFocusZone') as HTMLElement;
     ReactTestUtils.Simulate.keyDown(innerFocusZone, { which: keyboardKey.Enter });
 
-    expect(keyDownHandler).toBeCalled();
+    expect(keyDownHandler).toHaveBeenCalled();
   });
 
   it('can call onActiveItemChanged when the active item is changed', () => {
@@ -1913,5 +1913,17 @@ describe('FocusZone', () => {
     expect(button3.getAttribute('tabindex')).toBe('0');
 
     removeTestContainer();
+  });
+
+  it('has data-tabster=uncontrolled', () => {
+    const component = ReactTestUtils.renderIntoDocument(
+      <FocusZone>
+        <button>Button</button>
+      </FocusZone>,
+    );
+
+    const focusZone = ReactDOM.findDOMNode(component as unknown as React.ReactInstance) as Element;
+
+    expect(focusZone.getAttribute('data-tabster')).toBe('{"uncontrolled": {}}');
   });
 });

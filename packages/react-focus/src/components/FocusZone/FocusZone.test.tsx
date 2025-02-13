@@ -91,9 +91,6 @@ describe('FocusZone', () => {
     elementRefName: 'elementRef',
     testOptions: {
       'consistent-callback-names': { ignoreProps: ['onActiveElementChanged'] },
-      'consistent-callback-args': {
-        ignoreProps: ['onActiveElementChanged', 'onBeforeFocus', 'onFocusNotification', 'onFocus'],
-      },
     },
   });
 
@@ -2140,7 +2137,7 @@ describe('FocusZone', () => {
     const innerFocusZone = focusZone.querySelector('.innerFocusZone') as HTMLElement;
     ReactTestUtils.Simulate.keyDown(innerFocusZone, { which: KeyCodes.del });
 
-    expect(keyDownHandler).toBeCalled();
+    expect(keyDownHandler).toHaveBeenCalled();
   });
 
   it('should not set an element outside its DOM as its active element', () => {
@@ -2322,5 +2319,17 @@ describe('FocusZone', () => {
     expect(buttonA.tabIndex).toBe(-1);
     expect(buttonB.tabIndex).toBe(-1);
     expect(buttonC.tabIndex).toBe(0);
+  });
+
+  it('has data-tabster=uncontrolled', () => {
+    const component = ReactTestUtils.renderIntoDocument(
+      <FocusZone>
+        <button>Button</button>
+      </FocusZone>,
+    );
+
+    const focusZone = ReactDOM.findDOMNode(component as unknown as React.ReactInstance) as Element;
+
+    expect(focusZone.getAttribute('data-tabster')).toBe('{"uncontrolled": {}}');
   });
 });

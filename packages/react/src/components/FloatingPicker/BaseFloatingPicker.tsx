@@ -17,7 +17,7 @@ export interface IBaseFloatingPickerState {
   didBind: boolean;
 }
 
-export class BaseFloatingPicker<T, P extends IBaseFloatingPickerProps<T>>
+export class BaseFloatingPicker<T extends {}, P extends IBaseFloatingPickerProps<T>>
   extends React.Component<P, IBaseFloatingPickerState>
   implements IBaseFloatingPicker
 {
@@ -125,6 +125,7 @@ export class BaseFloatingPicker<T, P extends IBaseFloatingPickerProps<T>>
 
   public componentWillUnmount(): void {
     this._unbindFromInputElement();
+    this._async.dispose();
     this.isComponentMounted = false;
   }
 
@@ -253,7 +254,7 @@ export class BaseFloatingPicker<T, P extends IBaseFloatingPickerProps<T>>
     ) {
       return;
     }
-    // eslint-disable-next-line deprecation/deprecation
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     const keyCode = ev.which;
     switch (keyCode) {
       case KeyCodes.escape:

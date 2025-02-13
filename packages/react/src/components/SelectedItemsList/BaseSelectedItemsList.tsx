@@ -14,7 +14,7 @@ export interface IBaseSelectedItemsListState<T> {
   items: T[];
 }
 
-export class BaseSelectedItemsList<T, P extends IBaseSelectedItemsListProps<T>>
+export class BaseSelectedItemsList<T extends {}, P extends IBaseSelectedItemsListProps<T>>
   extends React.Component<P, IBaseSelectedItemsListState<T>>
   implements IBaseSelectedItemsList<T>
 {
@@ -225,7 +225,7 @@ export class BaseSelectedItemsList<T, P extends IBaseSelectedItemsListProps<T>>
         // Try to copy the text directly to the clipboard
         copyInput.value = copyText;
         copyInput.select();
-        // eslint-disable-next-line deprecation/deprecation
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         if (!doc.execCommand('copy')) {
           // The command failed. Fallback to the method below.
           throw new Error();

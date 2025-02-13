@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { InteractionTag, InteractionTagPrimary, InteractionTagSecondary } from '@fluentui/react-tags';
-import { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 import { getStoryVariant, withStoryWrightSteps, RTL } from '../../utilities';
 import { Avatar } from '@fluentui/react-avatar';
 import { Steps } from 'storywright';
@@ -8,27 +8,27 @@ import { Steps } from 'storywright';
 const contentId = 'content-id';
 const dismissButtonId = 'dismiss-button-id';
 const steps = new Steps()
-  .snapshot('default', { cropTo: '.testWrapper' })
+  .snapshot('default')
 
   // This needs to be added so that the focus outline is shown correctly
   .executeScript(`document.querySelector('#${contentId}').setAttribute('data-fui-focus-visible', '')`)
   .focus(`#${contentId}`)
-  .snapshot('focus content', { cropTo: '.testWrapper' })
+  .snapshot('focus content')
   .executeScript(`document.querySelector('#${contentId}').removeAttribute('data-fui-focus-visible')`)
 
   // This needs to be added so that the focus outline is shown correctly
   .executeScript(`document.querySelector('#${dismissButtonId}').setAttribute('data-fui-focus-visible', '')`)
   .focus(`#${dismissButtonId}`)
-  .snapshot('focus dismiss', { cropTo: '.testWrapper' })
+  .snapshot('focus dismiss')
   .executeScript(`document.querySelector('#${dismissButtonId}').removeAttribute('data-fui-focus-visible')`)
 
   .end();
 
 export default {
   title: 'InteractionTag Converged',
-  Component: InteractionTag,
+  component: InteractionTag,
   decorators: [story => withStoryWrightSteps({ story, steps })],
-} as ComponentMeta<typeof InteractionTag>;
+} satisfies Meta<typeof InteractionTag>;
 
 export const Rounded = () => (
   <InteractionTag>

@@ -1,25 +1,25 @@
 import * as React from 'react';
 import { Tag } from '@fluentui/react-tags';
-import { ComponentMeta } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 import { getStoryVariant, withStoryWrightSteps, RTL } from '../../utilities';
 import { Avatar } from '@fluentui/react-avatar';
 import { Steps } from 'storywright';
 
 const tagId = 'tag-id';
 const steps = new Steps()
-  .snapshot('default', { cropTo: '.testWrapper' })
+  .snapshot('default')
   // This needs to be added so that the focus outline is shown correctly
   .executeScript(`document.querySelector('#${tagId}').setAttribute('data-fui-focus-visible', '')`)
   .focus(`#${tagId}`)
-  .snapshot('focused', { cropTo: '.testWrapper' })
+  .snapshot('focused')
   .executeScript(`document.querySelector('#${tagId}').removeAttribute('data-fui-focus-visible')`)
   .end();
 
 export default {
   title: 'Tag Converged',
-  Component: Tag,
+  component: Tag,
   decorators: [story => withStoryWrightSteps({ story, steps })],
-} as ComponentMeta<typeof Tag>;
+} satisfies Meta<typeof Tag>;
 
 export const Rounded = () => <Tag>Primary Text</Tag>;
 

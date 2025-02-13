@@ -1,8 +1,80 @@
 # Change Log - @fluentui/tokens
 
-This log was last generated on Thu, 09 Nov 2023 17:29:48 GMT and should not be manually modified.
+This log was last generated on Mon, 16 Dec 2024 16:26:46 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## [1.0.0-alpha.21](https://github.com/microsoft/fluentui/tree/@fluentui/tokens_v1.0.0-alpha.21)
+
+Mon, 16 Dec 2024 16:26:46 GMT 
+[Compare changes](https://github.com/microsoft/fluentui/compare/@fluentui/tokens_v1.0.0-alpha.20..@fluentui/tokens_v1.0.0-alpha.21)
+
+### Changes
+
+- bugfix: ensure teams tokens follow teams overrides for fonts ([PR #33393](https://github.com/microsoft/fluentui/pull/33393) by bernardo.sunderhus@gmail.com)
+
+## [1.0.0-alpha.20](https://github.com/microsoft/fluentui/tree/@fluentui/tokens_v1.0.0-alpha.20)
+
+Fri, 06 Dec 2024 12:53:46 GMT 
+[Compare changes](https://github.com/microsoft/fluentui/compare/@fluentui/tokens_v1.0.0-alpha.19..@fluentui/tokens_v1.0.0-alpha.20)
+
+### Changes
+
+- chore: remove usage of "export *"  ([PR #33380](https://github.com/microsoft/fluentui/pull/33380) by olfedias@microsoft.com)
+
+## [1.0.0-alpha.19](https://github.com/microsoft/fluentui/tree/@fluentui/tokens_v1.0.0-alpha.19)
+
+Mon, 11 Nov 2024 10:00:39 GMT 
+[Compare changes](https://github.com/microsoft/fluentui/compare/@fluentui/tokens_v1.0.0-alpha.18..@fluentui/tokens_v1.0.0-alpha.19)
+
+### Changes
+
+- chore: replace npm-scripts and just-scrtips with nx inferred tasks ([PR #33074](https://github.com/microsoft/fluentui/pull/33074) by martinhochel@microsoft.com)
+
+## [1.0.0-alpha.18](https://github.com/microsoft/fluentui/tree/@fluentui/tokens_v1.0.0-alpha.18)
+
+Tue, 15 Oct 2024 17:17:52 GMT 
+[Compare changes](https://github.com/microsoft/fluentui/compare/@fluentui/tokens_v1.0.0-alpha.17..@fluentui/tokens_v1.0.0-alpha.18)
+
+### Changes
+
+- feat: add explicit .js file extensions to all relative import/export statement within built output to support native ESM within browser ([PR #30770](https://github.com/microsoft/fluentui/pull/30770) by martinhochel@microsoft.com)
+
+## [1.0.0-alpha.17](https://github.com/microsoft/fluentui/tree/@fluentui/tokens_v1.0.0-alpha.17)
+
+Mon, 23 Sep 2024 12:40:16 GMT 
+[Compare changes](https://github.com/microsoft/fluentui/compare/@fluentui/tokens_v1.0.0-alpha.16..@fluentui/tokens_v1.0.0-alpha.17)
+
+### Changes
+
+- feat: add z-index tokens ([PR #32356](https://github.com/microsoft/fluentui/pull/32356) by marcosvmmoura@gmail.com)
+
+## [1.0.0-alpha.16](https://github.com/microsoft/fluentui/tree/@fluentui/tokens_v1.0.0-alpha.16)
+
+Mon, 18 Mar 2024 19:50:46 GMT 
+[Compare changes](https://github.com/microsoft/fluentui/compare/@fluentui/tokens_v1.0.0-alpha.15..@fluentui/tokens_v1.0.0-alpha.16)
+
+### Changes
+
+- reverting #30770 which caused compilation issues ([PR #30803](https://github.com/microsoft/fluentui/pull/30803) by mgodbolt@microsoft.com)
+
+## [1.0.0-alpha.15](https://github.com/microsoft/fluentui/tree/@fluentui/tokens_v1.0.0-alpha.15)
+
+Fri, 15 Mar 2024 21:43:49 GMT 
+[Compare changes](https://github.com/microsoft/fluentui/compare/@fluentui/tokens_v1.0.0-alpha.14..@fluentui/tokens_v1.0.0-alpha.15)
+
+### Changes
+
+- feat: enable .js extension addition and directory import/export unwrapping in build output ([PR #30770](https://github.com/microsoft/fluentui/pull/30770) by martinhochel@microsoft.com)
+
+## [1.0.0-alpha.14](https://github.com/microsoft/fluentui/tree/@fluentui/tokens_v1.0.0-alpha.14)
+
+Thu, 07 Mar 2024 19:33:27 GMT 
+[Compare changes](https://github.com/microsoft/fluentui/compare/@fluentui/tokens_v1.0.0-alpha.13..@fluentui/tokens_v1.0.0-alpha.14)
+
+### Changes
+
+- feat: Add/update color tokens ([PR #30412](https://github.com/microsoft/fluentui/pull/30412) by miroslav.stastny@microsoft.com)
 
 ## [1.0.0-alpha.13](https://github.com/microsoft/fluentui/tree/@fluentui/tokens_v1.0.0-alpha.13)
 
